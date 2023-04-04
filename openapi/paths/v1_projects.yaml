@@ -1,0 +1,78 @@
+post:
+  tags:
+    - Projects
+  summary: Create a project
+  description: ''
+  operationId: Create a project
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/NewProject.yaml
+  responses:
+    '200':
+      description: Project
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Project.yaml
+    '400':
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+get:
+  tags:
+    - Projects
+  summary: List of projects
+  description: ''
+  operationId: Retrieve projects
+  parameters:
+    - name: search
+      in: query
+      description: Return projects that have fields matching this term.
+      required: false
+      schema:
+        type: string
+    - name: status
+      in: query
+      description: Return projects that have a certain status.
+      required: false
+      schema:
+        type: string
+        enum:
+          - NEW
+          - EDITING
+          - COMPLETED
+          - ARCHIVED
+    - name: per_page
+      in: query
+      description: The number of items per page. Defaults to 25.
+      required: false
+      schema:
+        type: integer
+        default: 25
+    - name: page
+      in: query
+      description: The requested page. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        default: 1
+  responses:
+    '200':
+      description: Project
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/Project.yaml
+    '400':
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml

@@ -1,0 +1,62 @@
+type: object
+properties:
+  id:
+    type: string
+    description: ID of the project.
+  external_id:
+    type: string
+    description: Your internal ID as reference for this project.
+  name:
+    type: string
+    description: The name of the project.
+  product_id:
+    type: string
+    description: ID of the EDITING_STYLE product to associate with this project.
+  turnaround_time_id:
+    type: string
+    description: ID of the TURNAROUND_TIME product to associate with this project.
+  notes:
+    type: string
+    description: Notes for the project.
+    required: false
+  files:
+    type: array
+    description: The list of your files
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the file.
+        url:
+          type: string
+          description: URL of the file.
+        version:
+          type: integer
+          description: Version of the file.
+        type:
+          type: string
+          description: Type of the file.
+          enum:
+            - RAW
+            - EDITED
+  editing_at:
+    type: date-time
+    description: The date and time (ISO 8601 format) when the project was edited.
+  completed_at:
+    type: date-time
+    description: The date and time (ISO 8601 format) when the project was completed.
+  created_at:
+    type: date-time
+    description: The date and time (ISO 8601 format) when the project was created.
+  updated_at:
+    type: date-time
+    description: The date and time (ISO 8601 format) when the project was last updated.
+  status:
+    type: string
+    description: The status of the project.
+    enum:
+      - NEW
+      - EDITING
+      - COMPLETED
+      - ARCHIVED

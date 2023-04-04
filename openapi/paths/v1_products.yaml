@@ -1,0 +1,19 @@
+get:
+  tags:
+    - Products
+  summary: List of products
+  description: ''
+  operationId: List of products
+  responses:
+    '200':
+      description: Product
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Product.yaml
+    '400':
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml

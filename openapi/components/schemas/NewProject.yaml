@@ -1,0 +1,28 @@
+type: object
+required:
+  - name
+  - external_id
+  - product_id
+  - photo_urls
+properties:
+  name:
+    type: string
+    description: The name of the project.
+  external_id:
+    type: string
+    description: Your internal ID as reference for this project.
+  product_id:
+    type: string
+    description: ID of the EDITING_STYLE product to associate with this project.
+  turnaround_time_id:
+    type: string
+    description: ID of the TURNAROUND_TIME product to associate with this project.
+  notes:
+    type: string
+    description: Notes for the project.
+    required: false
+  photo_urls:
+    type: array
+    description: The list of public raw photo urls.
+    items:
+      type: string
