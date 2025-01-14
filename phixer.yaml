@@ -96,7 +96,7 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Error"
 
-    /v1/projects/{projectId}:
+    /v1/projects/{projectId}: 
         get:
             tags:
                 - Projects
@@ -109,8 +109,8 @@ paths:
                   description: ID of project to return
                   required: true
                   schema:
-                    type: integer
-                    format: int64
+                    type: string
+                    format: uuid
             responses:
                 "200":
                     description: Project
@@ -137,8 +137,8 @@ paths:
                   description: ID of project to delete
                   required: true
                   schema:
-                    type: integer
-                    format: int64
+                    type: string
+                    format: uuid
             responses:
                 "200":
                     description: No Content
@@ -154,9 +154,9 @@ paths:
         get:
             tags:
                 - Products
-            summary: List of products
+            summary: List of Editing products
             description: ""
-            operationId: List of products
+            operationId: List of Editing products
             responses:
                 "200":
                     description: Product
@@ -172,6 +172,145 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Error"
 
+    /v1/photoshoots:
+        post: 
+            tags:
+                - Photoshoots
+            summary: Create a Photoshoot project
+            description: ""
+            operationId: Create a Photoshoot project
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/NewProject"
+            responses:
+                "200":
+                    description: Project
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Photoshoot"
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+
+        get:
+            tags:
+                - Photoshoots
+            summary: List of Photoshoot projects
+            description: ""
+            operationId: Retrieve Photoshoot projects
+            parameters:
+                - name: search
+                  in: query
+                  description: Return Photoshoot projects that have fields matching this term.
+                  required: false
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  description: Return Photoshoot projects that have a certain status.
+                  required: false
+                  schema:
+                    type: string
+                    enum:
+                        - NEW
+                        - CANCELLED
+                        - RESCHEDULED
+                        - SCHEDULED
+                        - EDITING
+                        - COMPLETED
+                        - ARCHIVED
+                - name: per_page
+                  in: query
+                  description: The number of items per page. Defaults to 25.
+                  required: false
+                  schema:
+                    type: integer
+                    default: 25
+                - name: page
+                  in: query
+                  description: The requested page. Defaults to 1.
+                  required: false
+                  schema:
+                    type: integer
+                    default: 1
+            responses:
+                "200":
+                    description: Photoshoot
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Photoshoot"
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+
+    /v1/photoshoots/{photoshootId}: 
+        get:
+            tags:
+                - Photoshoots
+            summary: Retrieve a Photoshoot project
+            description: ""
+            operationId: Retrieve a Photoshoot project
+            parameters:
+                - name: photoshootId
+                  in: path
+                  description: ID of photoshoot project to return
+                  required: true
+                  schema:
+                    type: string
+                    format: uuid
+            responses:
+                "200":
+                    description: Photoshoot
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Photoshoot"
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        delete:
+            tags:
+                - Projects
+            summary: Delete a Photoshoot project
+            description: You can only delete photoshoot if the status is `NEW` and `CANCELLED`
+            operationId: Delete a Photoshoot project
+            parameters:
+                - name: photoshootId
+                  in: path
+                  description: ID of photoshoot project to delete
+                  required: true
+                  schema:
+                    type: string
+                    format: uuid
+            responses:
+                "200":
+                    description: No Content
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
 components:
     securitySchemes:
         apiKey_header:
@@ -201,7 +340,6 @@ components:
                 notes:
                     type: string
                     description: Notes for the project.
-                    required: false
                 files:
                     type: array
                     description: The list of your files
@@ -283,13 +421,97 @@ components:
                 notes:
                     type: string
                     description: Notes for the project.
-                    required: false
                 photo_urls:
                     type: array
                     description: The list of public raw photo urls.
                     items:
                         type: string
 
+        NewPhotoshootProject:
+            type: object
+            required:
+                - name
+                - external_id
+                - package_id
+            properties:
+                name:
+                    type: string
+                    description: The name of the project.
+                external_id:
+                    type: string
+                    description: Your internal ID as reference for this project.
+                package_id:
+                    type: string
+                    description: ID of the Photoshoot Package to associate with this project.
+                notes:
+                    type: string
+                    description: Notes for the project.
+        Photoshoot:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: ID of the project.
+                external_id:
+                    type: string
+                    description: Your internal ID as reference for this project.
+                name:
+                    type: string
+                    description: The name of the project.
+                package_id:
+                    type: string
+                    description: ID of the Photoshoot Package to associate with this project.
+                notes:
+                    type: string
+                    description: Notes for the project.
+                files:
+                    type: array
+                    description: The list of your files
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                description: ID of the file.
+                            url:
+                                type: string
+                                description: URL of the file.
+                            version:
+                                type: integer
+                                description: Version of the file.
+                            type:
+                                type: string
+                                description: Type of the file.
+                                enum:
+                                    - RAW
+                                    - EDITED
+                editing_at:
+                    type: date-time
+                    description: The date and time (ISO 8601 format) when the project was edited.
+                scheduled_at:
+                    type: date-time
+                    description: The date and time (ISO 8601 format) when the project was scheduled. 
+                completed_at:
+                    type: date-time
+                    description: The date and time (ISO 8601 format) when the project was completed.
+                created_at:
+                    type: date-time
+                    description: The date and time (ISO 8601 format) when the project was created.
+                updated_at:
+                    type: date-time
+                    description: The date and time (ISO 8601 format) when the project was last updated.
+                status:
+                    type: string
+                    description: The status of the project.
+                    enum:
+                        - NEW
+                        - CANCELLED
+                        - RESCHEDULED
+                        - SCHEDULED
+                        - EDITING
+                        - COMPLETED
+                        - ARCHIVED
+        
         Error:
             type: object
             required:
@@ -298,3 +520,4 @@ components:
                 message:
                     description: A human readable error message
                     type: string
+
