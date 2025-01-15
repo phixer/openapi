@@ -388,7 +388,7 @@ paths:
                             properties:
                                 preferred_date:
                                     type: string
-                                    description: The new preferred shoot date and time (ISO 8601 format) preferred shoot.
+                                    description: The new preferred shoot date and time (ISO 8601 format).
 
             responses:
                 "200":
@@ -547,12 +547,12 @@ components:
                 package_id:
                     type: string
                     description: ID of the Photoshoot Package to associate with this photoshoot.
-                notes:
-                    type: string
-                    description: Notes or instructions for photographer for the photoshoot.
                 preferred_photoshoot_date:
                     type: string
                     description: The preferred shoot date and time (ISO 8601 format).
+                notes:
+                    type: string
+                    description: Notes or instructions for photographer for the photoshoot.
                 apt:
                     type: string
                     description: The apartment number of the property.
@@ -650,13 +650,13 @@ components:
             properties:
                 id:
                     type: string
-                    description: ID of the photographer.
+                    description: ID of the photoshoot package.
                 name:
                     type: string
-                    description: The name of the package.
+                    description: The name of the photoshoot package.
                 description:
                     type: string
-                    description: The description of the package.
+                    description: The description of the photoshoot package.
                 
         Error:
             type: object
