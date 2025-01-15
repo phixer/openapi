@@ -289,7 +289,7 @@ paths:
                                 $ref: "#/components/schemas/Error"
         delete:
             tags:
-                - Projects
+                - Photoshoots
             summary: Delete a Photoshoot project
             description: You can only delete photoshoot if the status is `NEW` and `CANCELLED`
             operationId: Delete a Photoshoot project
@@ -304,6 +304,77 @@ paths:
             responses:
                 "200":
                     description: No Content
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+    
+    /v1/photoshoots/{photoshootId}/cancel:
+        put:
+            tags:
+                - Photoshoots
+            summary: Cancel a Scheduled Photoshoot project
+            description: ""
+            operationId: Cancel a Scheduled Photoshoot project
+            parameters:
+                - name: photoshootId
+                  in: path
+                  description: ID of photoshoot project to return
+                  required: true
+                  schema:
+                    type: string
+                    format: uuid
+            responses:
+                "200":
+                    description: Photoshoot
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Photoshoot"
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+
+    /v1/photoshoots/{photoshootId}/reschedule:
+        post:
+            tags:
+                - Photoshoots
+            summary: Reschedule a Scheduled Photoshoot project
+            description: ""
+            operationId: Reschedule a Scheduled Photoshoot project
+            parameters:
+                - name: photoshootId
+                  in: path
+                  description: ID of photoshoot project to return
+                  required: true
+                  schema:
+                    type: string
+                    format: uuid
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                preferred_date:
+                                    type: string
+                                    description: The new preferred shoot date and time (ISO 8601 format) preferred shoot.
+
+            responses:
+                "200":
+                    description: Photoshoot
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Photoshoot"
 
                 400:
                     description: Error
@@ -433,6 +504,7 @@ components:
                 - name
                 - external_id
                 - package_id
+                - preferred_photoshoot_date
             properties:
                 name:
                     type: string
@@ -446,6 +518,10 @@ components:
                 notes:
                     type: string
                     description: Notes for the project.
+                preferred_photoshoot_date:
+                    type: string
+                    description: The preferred shoot date and time (ISO 8601 format).
+
         Photoshoot:
             type: object
             properties:
@@ -464,6 +540,9 @@ components:
                 notes:
                     type: string
                     description: Notes for the project.
+                preferred_photoshoot_date:
+                    type: string
+                    description: The preferred shoot date and time (ISO 8601 format).
                 files:
                     type: array
                     description: The list of your files
@@ -520,4 +599,3 @@ components:
                 message:
                     description: A human readable error message
                     type: string
-
