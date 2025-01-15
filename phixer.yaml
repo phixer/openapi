@@ -565,9 +565,8 @@ components:
                                     - RAW
                                     - EDITED
                 photographer:
-                    application/json:
-                            schema:
-                                $ref: "#/components/schemas/Photographer"
+                    $ref: "#/components/schemas/Photographer"
+                    description: The photographer assigned to the photo shoot.
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
