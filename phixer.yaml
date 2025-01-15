@@ -520,7 +520,7 @@ components:
                     items:
                         type: string
 
-        NewPhotoshootProject:
+        NewPhotoshoot:
             type: object
             required:
                 - address
