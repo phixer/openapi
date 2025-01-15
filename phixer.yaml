@@ -172,6 +172,28 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Error"
 
+    /v1/packages:
+        get:
+            tags:
+                - Packages
+            summary: List of Photoshoot packages
+            description: ""
+            operationId: List of Photoshoot packages
+            responses:
+                "200":
+                    description: Package
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Package"
+
+                400:
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+
     /v1/photoshoots:
         post: 
             tags:
@@ -184,7 +206,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/NewProject"
+                            $ref: "#/components/schemas/NewPhotoshoot"
             responses:
                 "200":
                     description: Project
@@ -501,45 +523,58 @@ components:
         NewPhotoshootProject:
             type: object
             required:
-                - name
+                - address
+                - address_coordinates
                 - external_id
                 - package_id
                 - preferred_photoshoot_date
             properties:
-                name:
+                address:
                     type: string
-                    description: The name of the project.
+                    description: The full address of the property.
+                address_coordinates:
+                    type: object
+                    properties:
+                        lat:
+                            type: string
+                            description: the latitude coordinate of the property.
+                        lng:
+                            type: string
+                            description: the longitude coordinate of the property.
                 external_id:
                     type: string
-                    description: Your internal ID as reference for this project.
+                    description: Your internal ID as reference for this photoshoot.
                 package_id:
                     type: string
-                    description: ID of the Photoshoot Package to associate with this project.
+                    description: ID of the Photoshoot Package to associate with this photoshoot.
                 notes:
                     type: string
-                    description: Notes for the project.
+                    description: Notes or instructions for photographer for the photoshoot.
                 preferred_photoshoot_date:
                     type: string
                     description: The preferred shoot date and time (ISO 8601 format).
+                apt:
+                    type: string
+                    description: The apartment number of the property.
 
         Photoshoot:
             type: object
             properties:
                 id:
                     type: string
-                    description: ID of the project.
+                    description: ID of the photoshoot.
                 external_id:
                     type: string
-                    description: Your internal ID as reference for this project.
+                    description: Your internal ID as reference for this photoshoot.
                 name:
                     type: string
-                    description: The name of the project.
+                    description: The name of the photoshoot project.
                 package_id:
                     type: string
-                    description: ID of the Photoshoot Package to associate with this project.
+                    description: ID of the Photoshoot Package to associate with this photoshoot.
                 notes:
                     type: string
-                    description: Notes for the project.
+                    description: Notes or instructions for photographer for the photoshoot.
                 preferred_photoshoot_date:
                     type: string
                     description: The preferred shoot date and time (ISO 8601 format).
@@ -566,7 +601,7 @@ components:
                                     - EDITED
                 photographer:
                     $ref: "#/components/schemas/Photographer"
-                    description: The photographer assigned to the photo shoot.
+                    description: The photographer assigned to the photoshoot.
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
@@ -609,8 +644,20 @@ components:
                 phone:
                     type: string
                     description: The phone number of the photographer
+
+        Package:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: ID of the photographer.
+                name:
+                    type: string
+                    description: The name of the package.
+                description:
+                    type: string
+                    description: The description of the package.
                 
-        
         Error:
             type: object
             required:
