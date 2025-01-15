@@ -564,6 +564,10 @@ components:
                                 enum:
                                     - RAW
                                     - EDITED
+                photographer:
+                    application/json:
+                            schema:
+                                $ref: "#/components/schemas/Photographer"
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
@@ -590,6 +594,23 @@ components:
                         - EDITING
                         - COMPLETED
                         - ARCHIVED
+        
+        Photographer:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: ID of the photographer.
+                first_name:
+                    type: string
+                    description: The first name of the photographer.
+                last_name:
+                    type: string
+                    description: The last name of the photographer.
+                phone:
+                    type: string
+                    description: The phone number of the photographer
+                
         
         Error:
             type: object
