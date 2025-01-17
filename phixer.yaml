@@ -335,7 +335,7 @@ paths:
                                 $ref: "#/components/schemas/Error"
     
     /v1/photoshoots/{photoshootId}/cancel:
-        put:
+        post:
             tags:
                 - Photoshoots
             summary: Cancel a Scheduled Photoshoot project
@@ -349,6 +349,16 @@ paths:
                   schema:
                     type: string
                     format: uuid
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                cancel_reason:
+                                    type: string
+                                    description: The reason why to cancel.
             responses:
                 "200":
                     description: Photoshoot
@@ -418,21 +428,27 @@ components:
                 id:
                     type: string
                     description: ID of the project.
+                    example: a938e733-2c1e-4cd3-b1fd-384d2b5cb695
                 external_id:
                     type: string
                     description: Your internal ID as reference for this project.
+                    example: 27d001cc-061a-4dcf-81e2-3d5d697844af
                 name:
                     type: string
                     description: The name of the project.
+                    example: 4070 Georgia St, San Diego, CA 92103, USA
                 product_id:
                     type: string
                     description: ID of the EDITING_STYLE product to associate with this project.
+                    example: 1
                 turnaround_time_id:
                     type: string
                     description: ID of the TURNAROUND_TIME product to associate with this project.
+                    example: 2
                 notes:
                     type: string
                     description: Notes for the project.
+                    example: Water needs to be natural looking (no unrealistic blues), Please keep exterior trees/bushes a lush green (not yellowish)
                 files:
                     type: array
                     description: The list of your files
@@ -442,18 +458,22 @@ components:
                             id:
                                 type: string
                                 description: ID of the file.
+                                example: 6505684f-08b5-4ad0-91bf-3b8c436b8116
                             url:
                                 type: string
                                 description: URL of the file.
+                                example: https://phixer-enterprise-assets.s3.us-west-2.amazonaws.com/projects/6789c0ba-626f-03c1-6822-c320752c02bd/raw/_MG_5184.jpg
                             version:
                                 type: integer
                                 description: Version of the file.
+                                example: 0
                             type:
                                 type: string
                                 description: Type of the file.
                                 enum:
                                     - RAW
                                     - EDITED
+                                example: RAW
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
@@ -602,6 +622,9 @@ components:
                 photographer:
                     $ref: "#/components/schemas/Photographer"
                     description: The photographer assigned to the photoshoot.
+                cancelled_reason:
+                    type: string
+                    description: The reason why the photo shoot is cancelled.
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
