@@ -209,7 +209,7 @@ paths:
                             $ref: "#/components/schemas/NewPhotoshoot"
             responses:
                 "200":
-                    description: Project
+                    description: Photoshoot
                     content:
                         application/json:
                             schema:
