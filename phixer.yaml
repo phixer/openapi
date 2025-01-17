@@ -477,15 +477,19 @@ components:
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
+                    example: 2024-12-07T14:00:00.255Z
                 completed_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was completed.
+                    example: 2024-12-07T14:00:00.255Z
                 created_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was created.
+                    example: 2024-12-07T14:00:00.255Z
                 updated_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was last updated.
+                    example: 2024-12-07T14:00:00.255Z
                 status:
                     type: string
                     description: The status of the project.
@@ -494,6 +498,7 @@ components:
                         - EDITING
                         - COMPLETED
                         - ARCHIVED
+                    example: NEW
 
         Product:
             type: object
@@ -501,15 +506,18 @@ components:
                 id:
                     type: string
                     description: ID of the product.
+                    example: 2f578663-56d2-4466-9498-115f45249f72
                 name:
                     type: string
                     description: The name of the product.
+                    example: Basic Editing
                 type:
                     type: string
                     description: Type of the product.
                     enum:
                         - EDITING_STYLE
                         - TURNAROUND_TIME
+                    example: EDITING_STYLE
 
         NewProject:
             type: object
@@ -583,21 +591,27 @@ components:
                 id:
                     type: string
                     description: ID of the photoshoot.
+                    example: 056fa34f-fdee-48fe-b3c3-58db76833401
                 external_id:
                     type: string
                     description: Your internal ID as reference for this photoshoot.
+                    example: a1b20e42-fc47-4a7e-a3c1-ebab3bd119a3
                 name:
                     type: string
                     description: The name of the photoshoot project.
+                    example: 4070 Georgia St, San Diego, CA 92103, USA
                 package_id:
                     type: string
                     description: ID of the Photoshoot Package to associate with this photoshoot.
+                    example: 1
                 notes:
                     type: string
                     description: Notes or instructions for photographer for the photoshoot.
+                    example: "Contact on site is Bill Brasky, His phone number is: 206-999-0909"
                 preferred_photoshoot_date:
                     type: string
                     description: The preferred shoot date and time (ISO 8601 format).
+                    example: 2024-12-07T14:00:00.255Z
                 files:
                     type: array
                     description: The list of your files
@@ -607,18 +621,22 @@ components:
                             id:
                                 type: string
                                 description: ID of the file.
+                                example: 6505684f-08b5-4ad0-91bf-3b8c436b8116
                             url:
                                 type: string
                                 description: URL of the file.
+                                example: https://phixer-enterprise-assets.s3.us-west-2.amazonaws.com/projects/6789c0ba-626f-03c1-6822-c320752c02bd/raw/_MG_5184.jpg
                             version:
                                 type: integer
                                 description: Version of the file.
+                                example: 0
                             type:
                                 type: string
                                 description: Type of the file.
                                 enum:
                                     - RAW
                                     - EDITED
+                                example: RAW
                 photographer:
                     $ref: "#/components/schemas/Photographer"
                     description: The photographer assigned to the photoshoot.
@@ -628,18 +646,23 @@ components:
                 editing_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was edited.
+                    example: 2024-12-07T14:00:00.255Z
                 scheduled_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was scheduled. 
+                    example: 2024-12-07T14:00:00.255Z
                 completed_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was completed.
+                    example: 2024-12-07T14:00:00.255Z
                 created_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was created.
+                    example: 2024-12-07T14:00:00.255Z
                 updated_at:
                     type: date-time
                     description: The date and time (ISO 8601 format) when the project was last updated.
+                    example: 2024-12-07T14:00:00.255Z
                 status:
                     type: string
                     description: The status of the project.
@@ -651,6 +674,7 @@ components:
                         - EDITING
                         - COMPLETED
                         - ARCHIVED
+                    example: NEW
         
         Photographer:
             type: object
@@ -658,15 +682,19 @@ components:
                 id:
                     type: string
                     description: ID of the photographer.
+                    example: 570efe86-bc3c-4931-950a-0d018ea0d43a
                 first_name:
                     type: string
                     description: The first name of the photographer.
+                    example: Johnny
                 last_name:
                     type: string
                     description: The last name of the photographer.
+                    example: Sinner
                 phone:
                     type: string
                     description: The phone number of the photographer
+                    example: 313-333-337
 
         Package:
             type: object
@@ -674,12 +702,15 @@ components:
                 id:
                     type: string
                     description: ID of the photoshoot package.
+                    example: 1
                 name:
                     type: string
                     description: The name of the photoshoot package.
+                    example: Standard Package
                 description:
                     type: string
                     description: The description of the photoshoot package.
+                    example: 25 Still photos
                 
         Error:
             type: object
